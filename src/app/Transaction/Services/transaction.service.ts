@@ -10,7 +10,7 @@ export class TransactionService {
 
   constructor(public http:HttpClient) { }
 
-  URL:string="http://localhost:56198/Transaction‏";
+  URL:string="http://localhost:56198/Transaction";
   amount : number;
   fromAccount :string;
   toAccount :string;

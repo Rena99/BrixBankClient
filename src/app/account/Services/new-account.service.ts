@@ -6,14 +6,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class NewAccountService {
 
   constructor(private http: HttpClient) { }
-  addCustomer(url, customer)
+  SendEmailToCheckUser(url, customerEmail)
   {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
       })
     }
-    const httpBody=JSON.stringify(customer)
+    const httpBody=JSON.stringify(customerEmail)
     return this.http.post(url, httpBody, httpOptions); 
   }
 }

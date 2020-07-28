@@ -7,14 +7,15 @@ export class EmailVerificationService {
 
   constructor(private http: HttpClient) { }
   
-  CheckUser(url, customer)
+  emailVerification(url,custemer)
   {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
       })
     }
-    const httpBody=JSON.stringify(customer)
+    const httpBody=JSON.stringify(custemer);
+    // var third = angular.extend(customerEmail, custemer);
     return this.http.post(url, httpBody, httpOptions); 
   }
 }
