@@ -8,7 +8,7 @@ import { LoginService } from './account/Services/login.service';
 })
 export class AppComponent {
   title = 'BrixBank';
-  signedIn=true;
+  signedIn=false;
 constructor(private route:Router, private logInService : LoginService) {
   this.logInService.onFormSubmitted.subscribe(() => {
     this.onFormSubmit();

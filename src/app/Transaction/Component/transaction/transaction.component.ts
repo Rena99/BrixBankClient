@@ -15,9 +15,9 @@ export class TransactionComponent implements OnInit {
   amount : number;
   fromAccount :string;
   toAccount :string;
-  url:string='http://localhost:53715/Transaction';
   currentUser:any;
   submitted=false;
+  url="http://localhost:56198/Transaction";
   
   constructor(private formBuilder: FormBuilder,private transactionSer:TransactionService) { }
 
@@ -48,7 +48,7 @@ export class TransactionComponent implements OnInit {
     transaction.toAccount=this.toAccount;
     transaction.amount=this.amount;
     transaction.fromAccount=this.currentUser= sessionStorage.getItem("currentUser");
-    this.transactionSer.bankTransfer(transaction).subscribe({
+    this.transactionSer.bankTransfer(this.url, transaction).subscribe({
       next: success=>{
         if(success===true){
           this.result = 'Your transaction has successfully sent';

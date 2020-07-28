@@ -11,42 +11,70 @@
     </mat-date-range-input>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker ></mat-date-range-picker>
-</mat-form-field>
-<button mat-raised-button  class="button" (click)="ngOnChanges('date')" style="width: 20%;">Sort By Date</button>
-<button mat-raised-button  class="button" (click)="ngOnChanges('amount')"  style="width: 20%;">Sort By Amount</button>
-<button mat-raised-button  class="button" (click)="ngOnChanges('balance')"  style="width: 20%;">Sort By Balance</button>
-<button mat-raised-button  class="button" (click)="ngOnChanges('credit')"  style="width: 20%;">Sort By Credit</button>
+ </mat-form-field>
+ <button mat-raised-button color="primary"  class="button" (click)="filter(start.value, end.value)" >Filter</button>
 
-<!-- 
-
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+ <div class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource"  multiTemplateDataRows>
+  <ng-container matColumnDef="accountNumber">
+    <th mat-header-cell *matHeaderCellDef> 
+        <button mat-raised-button color="primary" class="button" >Account No.</button>
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.accountId}} </td>
+</ng-container>
     <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef> 
-            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('date')" style="width: 95%;">Date</button>
+            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('date')" >Date</button>
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.operationTime}} </td>
     </ng-container>
     <ng-container matColumnDef="amount">
         <th mat-header-cell *matHeaderCellDef>
-            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('amount')" style="width: 95%;">Amount</button>
+            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('amount')" >Amount</button>
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.transactionAmount}} </td>
     </ng-container>
     <ng-container matColumnDef="balance">
         <th mat-header-cell *matHeaderCellDef>
-            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('balance')" style="width: 95%;">Balance</button>
+            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('balance')" >Balance</button>
             </th>
         <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
     </ng-container>
-    <ng-container matColumnDef="credit">
+    <ng-container matColumnDef="debit">
         <th mat-header-cell *matHeaderCellDef> 
-            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('credit')" style="width: 95%;">Credit</button>
+            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('debit')" >Debit</button>
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.credit}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.debit}} </td>
     </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table> -->
+   
+
+<ng-container matColumnDef="expandedDetail">
+  <td mat-cell *matCellDef="let eElement" [attr.colspan]="displayedColumns.length">
+    <div class="example-element-detail"
+         [@detailExpand]="eElement == expandedElement ? 'expanded' : 'collapsed'">
+      <div class="example-element-detail">
+        <div class="example-element-name">From Account: {{eElement.fromAccount}} </div><br>
+        <div class="example-element-name">To Account: {{eElement.toAccount}} </div><br>
+        <div class="example-element-detail">Date: {{eElement.date}} </div><br>
+        <div class="example-element-detail">Amount: {{eElement.amount}} </div>
+      </div>
+    </div>
+  </td>
+</ng-container>
+<!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>  -->
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let eElement; columns: displayedColumns;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === eElement"
+      (click)="expandedElement = expandedElement === eElement ? null : eElement; getDetails(element.transactionId)">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+  <mat-paginator [pageSizeOptions]="[1, 5, 10, 15]" [length]="length" [pageSize]="5" showFirstLastButtons (page)="handlePage($event)"></mat-paginator>
+</div>
+
+<!-- 
 <table mat-table
        [dataSource]="dataSource" multiTemplateDataRows
        class="mat-elevation-z8">
@@ -55,7 +83,6 @@
     <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
   </ng-container>
 
-  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
       <div class="example-element-detail"
@@ -76,5 +103,4 @@
       (click)="expandedElement = expandedElement === element ? null : element; getDetails(element.transactionId)">
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-</table>
-<mat-paginator [pageSizeOptions]="[5, 10, 15]" [pageSize]="5" showFirstLastButtons (page)="handlePage($event)"></mat-paginator>
+</table> -->

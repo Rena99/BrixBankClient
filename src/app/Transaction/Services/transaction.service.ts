@@ -25,7 +25,7 @@ export class TransactionService {
     this.setToAccount(t);
   }
   
-  bankTransfer(transaction:Transaction):Observable<any>
+  bankTransfer(url, transaction:Transaction):Observable<any>
   {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -33,6 +33,6 @@ export class TransactionService {
       })
     }
     const httpBody=JSON.stringify(transaction);
-    return this.http.post<any>(`${this.URL}`,httpBody,httpOptions);
+    return this.http.post<any>(url,httpBody,httpOptions).pipe();
   }
  }

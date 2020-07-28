@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import {HistoryService} from 'src/app/account/Services/history.service';
 import { trigger, style, state, transition, animate } from '@angular/animations';
 import {HistoryDetails}from 'src/app/account/Models/HistoryDetails'
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-history',
@@ -17,23 +18,24 @@ import {HistoryDetails}from 'src/app/account/Models/HistoryDetails'
   ],
 })
 export class HistoryComponent implements OnInit {
-  columnsToDisplay: string[] = ['Account No.', 'Date', 'Amount', 'Balance', 'Credit'];
+  displayedColumns: string[] = ['accountNumber', 'date', 'amount', 'balance', 'debit'];
   ELEMENT_DATA: History[] = [];
   expandedElement: HistoryDetails | null;
+  eElement: HistoryDetails | null;
   sortBy: string;
-  test:any;
   page=0;
   count=5;
-  dataSource = this.ELEMENT_DATA;
+  length=10;
+  dataSource = new MatTableDataSource<History>(this.ELEMENT_DATA);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  urlPath = "'http://localhost:53715/history";
-  url="http://localhost:56198/Transaction‏";
+  urlPath = "http://localhost:53715/Operations";
+  url="http://localhost:56198/TransactionDetails";
   constructor(private historyService: HistoryService) { }
   ngOnChanges(str:string) {
-    this.historyService.getHistory(this.urlPath+"/"+str+"/"+this.page+"/"+this.count).subscribe({
+    this.historyService.getHistory(this.urlPath+"/sort/"+this.page+"/"+this.count+"?accountId="+sessionStorage.getItem("currentUser").toString()+"&sort="+str).subscribe({
       next: path => {
         this.ELEMENT_DATA = path;
-        this.dataSource = (this.ELEMENT_DATA);
+        this.dataSource = new MatTableDataSource<History>(this.ELEMENT_DATA);
       },
       error: err => {
         console.log(err);
@@ -41,10 +43,10 @@ export class HistoryComponent implements OnInit {
     })
   }
   filter(start:Date, end:Date){
-    this.historyService.getHistory(this.urlPath+"/filter/"+start+"/"+end+"/"+this.page+"/"+this.count).subscribe({
+    this.historyService.getHistory(this.urlPath+"/filter/"+this.page+"/"+this.count+"?accountId="+sessionStorage.getItem("currentUser").toString()+"&from="+start+"&to="+end).subscribe({
       next: path => {
         this.ELEMENT_DATA = path;
-        this.dataSource = (this.ELEMENT_DATA);
+        this.dataSource = new MatTableDataSource<History>(this.ELEMENT_DATA);
       },
       error: err => {
         console.log(err);
@@ -78,7 +80,7 @@ export class HistoryComponent implements OnInit {
   getDetails(transactionId: string){
     this.historyService.getDetails(this.url+"/"+transactionId).subscribe({
       next: detail => {
-        this.expandedElement = detail;
+        this.eElement = detail;
       },
       error: err => {
         console.log(err);
@@ -92,10 +94,10 @@ export class HistoryComponent implements OnInit {
     this.ngOnInit();
   }
   ngOnInit(): void {
-    this.historyService.getHistory(this.urlPath+"/"+this.page+"/"+this.count).subscribe({
+    this.historyService.getHistory(this.urlPath+"/"+this.page+"/"+this.count+"?accountId="+sessionStorage.getItem("currentUser").toString()).subscribe({
       next: path => {
         this.ELEMENT_DATA = path;
-        this.dataSource = (this.ELEMENT_DATA);
+        this.dataSource = new MatTableDataSource<History>(this.ELEMENT_DATA);
       },
       error: err => {
         console.log(err);

@@ -1,9 +1,9 @@
 export interface History {
-    amount: number;
+    transactionAmount: number;
     balance:number;
-    date: Date;
+    operationTime: Date;
     accountId: string;
-    credit: boolean;
+    debit: boolean;
     transactionId:string;
     fromAccount: string;
     status: string;
