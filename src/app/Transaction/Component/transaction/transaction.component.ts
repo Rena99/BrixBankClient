@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import { TransactionService } from 'src/app/Transaction/Services/transaction.service';
 import { Transaction } from 'src/app/Transaction/Models/Transaction‏';
+import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-transaction',
   templateUrl: './transaction.component.html',
@@ -51,9 +53,11 @@ export class TransactionComponent implements OnInit {
     this.transactionSer.bankTransfer(transaction).subscribe({
       next: success=>{
         if(success===true){
+          alert("Your transaction has successfully sent");
           this.result = 'Your transaction has successfully sent';
         }
         else{
+          alert("Something went wrong! please try again")
           this.result = 'Something went wrong! please try again';
         }
       },

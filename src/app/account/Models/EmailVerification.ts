@@ -3,6 +3,6 @@ export interface EmailVerification {
     lastName:string;
     email: string;
     password: string;
-    VerificationCode:number;
-    ExpirationTime:Date;
+    verificationCode:number;
+    expirationTime:Date;
 }

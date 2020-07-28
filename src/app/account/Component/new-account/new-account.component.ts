@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import{NewAccountService} from 'src/app/account/Services/new-account.service';
 import { Router } from '@angular/router';
+import { EmailVerificationService } from '../../Services/email-verification.service';
 @Component({
   selector: 'app-new-account',
   templateUrl: './new-account.component.html',
@@ -12,8 +13,9 @@ export class NewAccountComponent implements OnInit {
   titleAlert: string = 'This field is required';
   post: any = '';
   result: any = '';
-  url:string='http://localhost:53715/newaccount';
-  constructor(private formBuilder: FormBuilder, private accountService: NewAccountService,private route:Router) { }
+  //url:string='http://localhost:53715/newaccount';
+  url:string='http://localhost:53715/EmailVerification';
+  constructor (private EmailVerificationSer:EmailVerificationService, private formBuilder: FormBuilder, private newAccountService: NewAccountService,private route:Router) { }
 
   ngOnInit() {
     this.createForm();
@@ -55,16 +57,22 @@ export class NewAccountComponent implements OnInit {
   }
 
   onSubmit(post) {
-    this.accountService.addCustomer(this.url, post).subscribe({
+    //this.EmailVerificationSer.CheckUser(this.url,post,sessionStorage.getItem("currentUserPassword")).subscribe({
+    //this.EmailVerificationSer.CheckUser(this.url,post.email).subscribe({
+    this.newAccountService.SendEmailToCheckUser(this.url, post.email).subscribe({
       next: success=>{
-        if(success===true){
+        // if(success===true){
+          sessionStorage.setItem("currentUserEmail", post.email);
+          sessionStorage.setItem("currentUserFirstName", post.firstName);
+          sessionStorage.setItem("currentUserLastName", post.lastName);
+          sessionStorage.setItem("currentUserPassword", post.password);
+          sessionStorage.setItem("currentUserExpirationTime", post.expirationTime);
           this.result = 'You have successfully joined Brix Bank';
-          
-          this.route.navigate(["./login"]);
-        }
-        else{
-          this.result = 'Something went wrong! please try again';
-        }
+          this.route.navigate(["./emailverification"]);
+        // }
+        // else{
+        //   this.result = 'Something went wrong! please try again';
+        // }
       },
       error: e=>console.error(e)
     })
