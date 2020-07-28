@@ -1,0 +1,17 @@
+<body style="text-align: center;">
+  <mat-toolbar color="primary" style="text-align: center;">
+      <span class="fill-remaining-space">My Account</span>
+    </mat-toolbar> 
+  </body>
+<div style="text-align: center;">
+    <mat-card class="example-card" style="display: inline-block; width: 100%;">
+        <mat-card-header>
+            <i class="fa fa-user fa-5x" aria-hidden="true" style="position: relative; margin-left: 46%; margin-right: 46%;"></i>
+        </mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Welcome: {{account.firstName}} {{account.lastName}}</mat-card-title>
+          <mat-card-subtitle></mat-card-subtitle>
+          <mat-card-subtitle>Balance: {{account.balance}}</mat-card-subtitle>
+    </mat-card>
+      </div>
+     

@@ -1,0 +1,23 @@
+<body style="text-align: center;">
+        <mat-toolbar color="primary" style="text-align: center;">
+            <span class="fill-remaining-space">Email Verification</span>
+          </mat-toolbar> 
+          <div style="display: inline-block;">
+          <div class="container" *ngIf="!post; else forminfo" novalidate> 
+            <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+              <mat-form-field class="form-element">
+                <input matInput placeholder="Enter Password" formControlName="password"  [(ngModel)]="password">
+              </mat-form-field>
+              <div class="form-element">
+                <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Ok</button>
+              </div>
+            </form>
+          </div>
+        </div>
+</body>
+          
+          <ng-template #forminfo>
+            <div class="container">
+              {{ result }}
+            </div>
+          </ng-template>

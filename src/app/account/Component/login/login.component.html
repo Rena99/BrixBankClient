@@ -1,0 +1,39 @@
+
+     <body style="text-align: center;">
+      <mat-toolbar color="primary" style="text-align: center;">
+          <span class="fill-remaining-space">Sign In</span>
+        </mat-toolbar> 
+        <div style="display: inline-block;">
+        <div class="container" *ngIf="!post; else forminfo" novalidate> 
+          <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+            <mat-form-field class="form-element">
+              <input matInput placeholder="Email Address" formControlName="email" [(ngModel)]="email">
+              <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
+                {{ getErrorEmail() }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-element">
+              <input matInput placeholder="Password" formControlName="password"  [(ngModel)]="password">
+              <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
+                {{ getErrorPassword() }}
+              </mat-error>
+            </mat-form-field>
+            
+            <div class="form-element">
+              <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Sign In</button>
+            </div>
+         
+           
+          </form>
+        </div>
+        <div class="form-element">
+          <button mat-raised-button color="primary" class="button" (click)="enterNewUser()">Sign Up</button>
+        </div>
+      </div>
+      </body>
+        
+        <ng-template #forminfo>
+          <div class="container">
+            {{ result }}
+          </div>
+        </ng-template>

@@ -1,0 +1,15 @@
+<!-- <div class="form-element">
+    <button mat-raised-button color="primary" (click)="logout()" class="button" >Log Out</button>
+  </div> -->
+  <mat-toolbar *ngIf=signedIn>
+    <mat-toolbar-row>
+        <h1><b>Brix Bank</b></h1>
+        <span class="example-spacer" style="width: 70%;"></span> 
+        <button mat-button (click)="routeToAccount()" >My Account</button>
+        <button mat-button (click)="routeToTransaction()" >New Transaction</button>
+        <button mat-button (click)="routeToHistory()" >History</button>
+        <button mat-button (click)="routeToSignIn()">Log Out</button>
+    </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>
+

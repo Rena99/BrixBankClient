@@ -1,0 +1,33 @@
+<body style="text-align: center;" *ngIf=!submitted>
+    <mat-toolbar color="primary" style="text-align: center;">
+        <span class="fill-remaining-space">Transaction</span>
+      </mat-toolbar> 
+      <div style="display: inline-block;">
+      <div class="container" *ngIf="!post;" novalidate> 
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+          <mat-form-field class="form-element">
+            <input matInput placeholder="To Account" formControlName="toAccount" [(ngModel)]="toAccount">
+            <mat-error *ngIf="!formGroup.controls['toAccount'].valid && formGroup.controls['toAccount'].touched">
+              {{ getErrorToAccount() }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-element">
+            <input type="number" matInput placeholder="amount" formControlName="amount"[(ngModel)]="amount">
+            <mat-hint>Choose an amount min = 1 max =1 m</mat-hint>
+            <mat-error *ngIf="!formGroup.controls['amount'].valid && formGroup.controls['amount'].touched">
+              {{ getErrorAmount() }}
+            </mat-error>
+          </mat-form-field>
+          <div class="form-element">
+            <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    </body>
+      
+      <ng-template *ngIf=submitted>
+        <div class="container">
+          {{ result }}
+        </div>
+      </ng-template>

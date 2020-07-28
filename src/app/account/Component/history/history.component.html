@@ -1,0 +1,80 @@
+<body style="text-align: center;">
+<mat-toolbar color="primary" style="text-align: center;">
+    <span class="fill-remaining-space">My Transactions</span>
+  </mat-toolbar> 
+</body>
+<mat-form-field appearance="fill"  style="width: 20%;">
+    <mat-label>Filter by a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker" (dateChange)="filter(start.value, end.value)">
+      <input matStartDate placeholder="Start date" id="start" #start>
+      <input matEndDate placeholder="End date" id="end" #end>
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker ></mat-date-range-picker>
+</mat-form-field>
+<button mat-raised-button  class="button" (click)="ngOnChanges('date')" style="width: 20%;">Sort By Date</button>
+<button mat-raised-button  class="button" (click)="ngOnChanges('amount')"  style="width: 20%;">Sort By Amount</button>
+<button mat-raised-button  class="button" (click)="ngOnChanges('balance')"  style="width: 20%;">Sort By Balance</button>
+<button mat-raised-button  class="button" (click)="ngOnChanges('credit')"  style="width: 20%;">Sort By Credit</button>
+
+<!-- 
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> 
+            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('date')" style="width: 95%;">Date</button>
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+    <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>
+            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('amount')" style="width: 95%;">Amount</button>
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+    </ng-container>
+    <ng-container matColumnDef="balance">
+        <th mat-header-cell *matHeaderCellDef>
+            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('balance')" style="width: 95%;">Balance</button>
+            </th>
+        <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
+    </ng-container>
+    <ng-container matColumnDef="credit">
+        <th mat-header-cell *matHeaderCellDef> 
+            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('credit')" style="width: 95%;">Credit</button>
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.credit}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table> -->
+<table mat-table
+       [dataSource]="dataSource" multiTemplateDataRows
+       class="mat-elevation-z8">
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+  </ng-container>
+
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+        <div class="example-element-detail">
+          <div class="example-element-name">From Account: {{element.fromAccount}} </div>
+          <div class="example-element-name">To Account: {{element.toAccount}} </div>
+          <div class="example-element-detail">Date: {{element.date}} </div>
+          <div class="example-element-detail">Amount: {{element.amount}} </div>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element; getDetails(element.transactionId)">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 15]" [pageSize]="5" showFirstLastButtons (page)="handlePage($event)"></mat-paginator>
