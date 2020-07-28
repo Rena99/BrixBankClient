@@ -26,6 +26,8 @@ export class HistoryComponent implements OnInit {
   page=0;
   count=5;
   length=10;
+  clicked=false;
+  transactionId="";
   dataSource = new MatTableDataSource<History>(this.ELEMENT_DATA);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   urlPath = "http://localhost:53715/Operations";
@@ -78,14 +80,24 @@ export class HistoryComponent implements OnInit {
     return filteredList;
   }
   getDetails(transactionId: string){
+    if(transactionId===this.transactionId){
+      this.clicked=false;
+      this.transactionId="";
+      console.log(this.clicked);
+    }
+    else{
     this.historyService.getDetails(this.url+"/"+transactionId).subscribe({
       next: detail => {
         this.eElement = detail;
+        this.clicked=true;
+        this.transactionId=transactionId;
+        console.log(this.clicked);
       },
       error: err => {
         console.log(err);
       }
     })
+  }
   }
 
   public handlePage(e: any) {
