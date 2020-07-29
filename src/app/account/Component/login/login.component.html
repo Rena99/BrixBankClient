@@ -1,5 +1,4 @@
-
-     <body style="text-align: center;">
+<body style="text-align: center;">
       <mat-toolbar color="primary" style="text-align: center;">
           <span class="fill-remaining-space">Sign In</span>
         </mat-toolbar> 
@@ -18,12 +17,9 @@
                 {{ getErrorPassword() }}
               </mat-error>
             </mat-form-field>
-            
             <div class="form-element">
               <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Sign In</button>
             </div>
-         
-           
           </form>
         </div>
         <div class="form-element">
@@ -31,7 +27,6 @@
         </div>
       </div>
       </body>
-        
         <ng-template #forminfo>
           <div class="container">
             {{ result }}

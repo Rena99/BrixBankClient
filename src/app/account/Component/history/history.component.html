@@ -13,7 +13,6 @@
     <mat-date-range-picker #picker ></mat-date-range-picker>
  </mat-form-field>
  <button mat-raised-button color="primary"  class="button" (click)="filter(start.value, end.value)" >Filter</button>
-
  <div class="mat-elevation-z8">
 <table mat-table [dataSource]="dataSource"  multiTemplateDataRows>
   <ng-container matColumnDef="accountNumber">

@@ -14,17 +14,7 @@ export class TransactionService {
   amount : number;
   fromAccount :string;
   toAccount :string;
-  setFromAccount(e){this.fromAccount=e}
-  setAmount(a){this.amount=a}
-  setToAccount(e){this.toAccount=e}
 
-  setLocalUser(f:string,a:string,t:string)
-  {
-    this.setFromAccount(f);
-    this.setAmount(a)
-    this.setToAccount(t);
-  }
-  
   bankTransfer(url, transaction:Transaction):Observable<any>
   {
     const httpOptions = {

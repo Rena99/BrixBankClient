@@ -15,7 +15,6 @@ export class EmailVerificationService {
       })
     }
     const httpBody=JSON.stringify(custemer);
-    // var third = angular.extend(customerEmail, custemer);
     return this.http.post(url, httpBody, httpOptions); 
   }
 }

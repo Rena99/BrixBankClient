@@ -25,27 +25,16 @@ export class EmailVerificationComponent implements OnInit {
     });
   }
 
-
   onSubmit(post) {
-    
     var emailVerification ={}as EmailVerification;
     emailVerification.verificationCode=post.verificationCode;
     emailVerification.email=sessionStorage.getItem("currentUserEmail");
     emailVerification.firstName=sessionStorage.getItem("currentUserFirstName");
     emailVerification.lastName=sessionStorage.getItem("currentUserLastName");
     emailVerification.password=sessionStorage.getItem("currentUserPassword");
-    // emailVerification.expirationTime=sessionStorage.getItem("currentUserExpirationTime");
-    
     this.EmailVerificationSer.emailVerification(this.url, emailVerification).subscribe({
        next: success=>{
-      //   if(success===true){
-      //     this.result = 'You have successfully joined Brix Bank';
-      // let currentUserToCheckEmail= sessionStorage.getItem("currentUserToCheckEmail")
           this.route.navigate(["./login"]);
-        // }
-        // else{
-        //   this.result = 'Something went wrong! please try again';
-        // }
       },
       error: e=>console.error(e)
     })

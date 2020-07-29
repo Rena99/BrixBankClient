@@ -7,7 +7,9 @@ import {Account} from 'src/app/account/Models/Account';
 })
 export class AccountService {
   url="http://localhost:53715/login/GetAccount";
+  
   constructor(private http: HttpClient) { }
+
   getAccount(id): Observable<Account>
   {
       return this.http.get<Account>(this.url+'?accountId='+id).pipe();

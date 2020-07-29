@@ -13,7 +13,6 @@ export class NewAccountComponent implements OnInit {
   titleAlert: string = 'This field is required';
   post: any = '';
   result: any = '';
-  //url:string='http://localhost:53715/newaccount';
   url:string='http://localhost:53715/EmailVerification';
   constructor (private EmailVerificationSer:EmailVerificationService, private formBuilder: FormBuilder, private newAccountService: NewAccountService,private route:Router) { }
 
@@ -57,11 +56,8 @@ export class NewAccountComponent implements OnInit {
   }
 
   onSubmit(post) {
-    //this.EmailVerificationSer.CheckUser(this.url,post,sessionStorage.getItem("currentUserPassword")).subscribe({
-    //this.EmailVerificationSer.CheckUser(this.url,post.email).subscribe({
     this.newAccountService.SendEmailToCheckUser(this.url, post.email).subscribe({
       next: success=>{
-        // if(success===true){
           sessionStorage.setItem("currentUserEmail", post.email);
           sessionStorage.setItem("currentUserFirstName", post.firstName);
           sessionStorage.setItem("currentUserLastName", post.lastName);
@@ -69,10 +65,6 @@ export class NewAccountComponent implements OnInit {
           sessionStorage.setItem("currentUserExpirationTime", post.expirationTime);
           this.result = 'You have successfully joined Brix Bank';
           this.route.navigate(["./emailverification"]);
-        // }
-        // else{
-        //   this.result = 'Something went wrong! please try again';
-        // }
       },
       error: e=>console.error(e)
     })

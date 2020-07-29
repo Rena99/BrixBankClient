@@ -2,7 +2,6 @@
     <mat-toolbar color="primary" style="text-align: center;">
         <span class="fill-remaining-space">Transaction</span>
       </mat-toolbar>
-      
       <div style="display: inline-block;">
       <div class="container" *ngIf="!post;" novalidate> 
         <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
@@ -26,7 +25,6 @@
       </div>
     </div>
     </body>
-    
     <div  *ngIf=submitted style="text-align: center;">
       <mat-card class="example-card" style="display: inline-block; width: 100%;" >
         <mat-card-header>
@@ -36,10 +34,3 @@
           <mat-card-title>{{ result }}</mat-card-title>
       </mat-card>
     </div> 
-   
-      
-      <!-- <ng-template *ngIf=submitted>
-        <div class="container">
-          {{ result }}
-        </div>
-      </ng-template> -->

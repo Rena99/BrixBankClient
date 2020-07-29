@@ -44,6 +44,7 @@ export class HistoryComponent implements OnInit {
       }
     })
   }
+
   filter(start:Date, end:Date){
     this.historyService.getHistory(this.urlPath+"/filter/"+this.page+"/"+this.count+"?accountId="+sessionStorage.getItem("currentUser").toString()+"&from="+start+"&to="+end).subscribe({
       next: path => {
@@ -55,6 +56,7 @@ export class HistoryComponent implements OnInit {
       }
     })
   }
+
   transform(itemList: any, searchKeyword: string) {
     if (!itemList)
       return [];
@@ -79,6 +81,7 @@ export class HistoryComponent implements OnInit {
     }
     return filteredList;
   }
+
   getDetails(transactionId: string){
     if(transactionId===this.transactionId){
       this.clicked=false;
@@ -105,6 +108,7 @@ export class HistoryComponent implements OnInit {
     this.count=e.pageSize;
     this.ngOnInit();
   }
+
   ngOnInit(): void {
     this.historyService.getHistory(this.urlPath+"/"+this.page+"/"+this.count+"?accountId="+sessionStorage.getItem("currentUser").toString()).subscribe({
       next: path => {
@@ -115,6 +119,5 @@ export class HistoryComponent implements OnInit {
         console.log(err);
       }
     })
-
 }
 }
