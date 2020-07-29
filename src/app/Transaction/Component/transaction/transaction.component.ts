@@ -53,7 +53,7 @@ export class TransactionComponent implements OnInit {
     this.transactionSer.bankTransfer(this.url, transaction).subscribe({
       next: success=>{
         if(success===true){
-          this.result = 'Your transaction has been successfully sent';
+          this.result = 'Your request has been successfully sent';
         }
         else{
           this.result = 'Something went wrong! please try again';

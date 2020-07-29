@@ -24,7 +24,7 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-element">
-        <input matInput placeholder="Password" formControlName="password">
+        <input type="password" matInput placeholder="Password" formControlName="password">
         <mat-hint>Choose a password of at least eight characters, one uppercase letter and one number</mat-hint>
         <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
           {{ getErrorPassword() }}
