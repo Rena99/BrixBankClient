@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class NewAccountService {
 
   constructor(private http: HttpClient) { }
+  
   SendEmailToCheckUser(url, customerEmail)
   {
     const httpOptions = {

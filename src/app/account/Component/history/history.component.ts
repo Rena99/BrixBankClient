@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css']
 })
+
 export class HistoryComponent implements OnInit {
   displayedColumns: string[] = ['accountNumber', 'date', 'amount', 'balance', 'debit'];
   ELEMENT_DATA: History[] = [];
