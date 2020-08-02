@@ -8,19 +8,11 @@ import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
-  styleUrls: ['./history.component.css'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+  styleUrls: ['./history.component.css']
 })
 export class HistoryComponent implements OnInit {
   displayedColumns: string[] = ['accountNumber', 'date', 'amount', 'balance', 'debit'];
   ELEMENT_DATA: History[] = [];
-  expandedElement: HistoryDetails | null;
   eElement: HistoryDetails | null;
   sortBy: string;
   page=0;
@@ -33,6 +25,7 @@ export class HistoryComponent implements OnInit {
   urlPath = "http://localhost:53715/Operations";
   url="http://localhost:56198/TransactionDetails";
   constructor(private historyService: HistoryService) { }
+  //create filter interface and inherit according to filter type and send that to server
   ngOnChanges(str:string) {
     this.historyService.getHistory(this.urlPath+"/sort/"+this.page+"/"+this.count+"?accountId="+sessionStorage.getItem("currentUser").toString()+"&sort="+str).subscribe({
       next: path => {
@@ -57,36 +50,10 @@ export class HistoryComponent implements OnInit {
     })
   }
 
-  transform(itemList: any, searchKeyword: string) {
-    if (!itemList)
-      return [];
-    if (!searchKeyword)
-      return itemList;
-    let filteredList = [];
-    if (itemList.length > 0) {
-      searchKeyword = searchKeyword.toLowerCase();
-      itemList.forEach(item => {
-        let propValueList = Object.values(item);
-        for(let i=0;i<propValueList.length;i++)
-        {
-          if (propValueList[i]) {
-            if (propValueList[i].toString().toLowerCase().indexOf(searchKeyword) > -1)
-            {
-              filteredList.push(item);
-              break;
-            }
-          }
-        }
-      });
-    }
-    return filteredList;
-  }
-
   getDetails(transactionId: string){
     if(transactionId===this.transactionId){
       this.clicked=false;
       this.transactionId="";
-      console.log(this.clicked);
     }
     else{
     this.historyService.getDetails(this.url+"/"+transactionId).subscribe({
@@ -94,7 +61,6 @@ export class HistoryComponent implements OnInit {
         this.eElement = detail;
         this.clicked=true;
         this.transactionId=transactionId;
-        console.log(this.clicked);
       },
       error: err => {
         console.log(err);

@@ -5,6 +5,5 @@ export interface History {
     accountId: string;
     debit: boolean;
     transactionId:string;
-    fromAccount: string;
-    status: string;
+    succeeded: boolean;
 }

@@ -41,12 +41,13 @@
     </ng-container>
     <ng-container matColumnDef="debit">
         <th mat-header-cell *matHeaderCellDef> 
-            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('debit')" >Debit</button>
+            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('debit')" >Transaction Type</button>
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.debit}} </td>
+        <td mat-cell *matCellDef="let element" *ngIf="element.debit"> Debit </td>
+        <td mat-cell *matCellDef="let element" *ngIf="element.debit"> Credit </td>
     </ng-container>
-<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
- <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getDetails(row.transactionId)"></tr> 
+<tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'error': row.succeeded===false}" (click)="getDetails(row.transactionId)" ></tr> 
 </table>
   <mat-paginator [pageSizeOptions]="[1, 5, 10, 15]" [length]="length" [pageSize]="5" showFirstLastButtons (page)="handlePage($event)"></mat-paginator>
 </div>
@@ -61,7 +62,11 @@
     <mat-card-subtitle> From Account: {{eElement.fromAccount}}</mat-card-subtitle>
       <mat-card-subtitle> To Account: {{eElement.toAccount}}</mat-card-subtitle>
         <mat-card-subtitle>Date: {{eElement.date}}</mat-card-subtitle>
-          <mat-card-subtitle> Amount: {{eElement.amount}}</mat-card-subtitle>
+          <mat-card-subtitle>Amount: {{eElement.amount}}</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="eElement.status===2">Status: Failed</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="eElement.status===1">Status: Succcess</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="eElement.status===2">Failure Reason: {{eElement.failureReason}}</mat-card-subtitle>
+
 </mat-card>
 </div>
 

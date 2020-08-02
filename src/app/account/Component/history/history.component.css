@@ -10,4 +10,6 @@ table {
   .container {
     padding: 10px;
   }
-  
+  .error {
+    background-color: rgba(255, 0, 0);
+}
