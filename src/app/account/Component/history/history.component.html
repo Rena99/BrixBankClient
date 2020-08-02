@@ -43,8 +43,8 @@
         <th mat-header-cell *matHeaderCellDef> 
             <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('debit')" >Transaction Type</button>
         </th>
-        <td mat-cell *matCellDef="let element" *ngIf="element.debit"> Debit </td>
-        <td mat-cell *matCellDef="let element" *ngIf="element.debit"> Credit </td>
+        <td mat-cell *matCellDef="let element" ><span *ngIf="element.debit">Debit</span> <span *ngIf="!element.debit">Credit</span> </td>
+        <!-- <td mat-cell *matCellDef="let element" *ngIf="element.debit"> Credit </td> -->
     </ng-container>
 <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
 <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'error': row.succeeded===false}" (click)="getDetails(row.transactionId)" ></tr> 
