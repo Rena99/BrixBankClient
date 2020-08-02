@@ -14,23 +14,18 @@ export class EmailVerificationComponent implements OnInit {
   titleAlert: string = 'This field is required';
   post: any = '';
   result: any = '';
-  //url:string='http://localhost:53715/newaccount';
-  url:string='http://localhost:53715/EmailVerification';
+  url:string='http://localhost:53715/newaccount';
+  urlEmailVerification:string='http://localhost:53715/EmailVerification';
+
   constructor(private newAccountService:NewAccountService, private EmailVerificationSer:EmailVerificationService,private formBuilder: FormBuilder, private route:Router) { }
 
   ngOnInit(): void {
     this.createForm();
   }
   tryAgain(){
-    this.newAccountService.SendEmailToCheckUser(this.url,sessionStorage.getItem("currentUserEmail") ).subscribe({
+    this.newAccountService.SendEmailToCheckUser(this.urlEmailVerification,sessionStorage.getItem("currentUserEmail") ).subscribe({
       next: success=>{
-          // sessionStorage.setItem("currentUserEmail", post.email);
-          // sessionStorage.setItem("currentUserFirstName", post.firstName);
-          // sessionStorage.setItem("currentUserLastName", post.lastName);
-          // sessionStorage.setItem("currentUserPassword", post.password);
-          // sessionStorage.setItem("currentUserExpirationTime", post.expirationTime);
           this.result = 'You have successfully joined Brix Bank';
-         // this.route.navigate(["./emailverification"]);
       },
       error: e=>console.error(e)
     })

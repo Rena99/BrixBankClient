@@ -1,72 +1,72 @@
 <body style="text-align: center;">
-<mat-toolbar color="primary" style="text-align: center;">
-    <span class="fill-remaining-space">My Transactions</span>
-  </mat-toolbar> 
-</body>
-<mat-form-field appearance="fill"  style="width: 20%;">
-    <mat-label>Filter by a date range</mat-label>
-    <mat-date-range-input [rangePicker]="picker" (dateChange)="filter(start.value, end.value)">
-      <input matStartDate placeholder="Start date" id="start" #start>
-      <input matEndDate placeholder="End date" id="end" #end>
-    </mat-date-range-input>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker ></mat-date-range-picker>
- </mat-form-field>
- <button mat-raised-button color="primary"  class="button" (click)="filter(start.value, end.value)" >Filter</button>
- <div class="mat-elevation-z8">
-<table mat-table [dataSource]="dataSource"  multiTemplateDataRows>
-  <ng-container matColumnDef="accountNumber">
-    <th mat-header-cell *matHeaderCellDef> 
-        <button mat-raised-button color="primary" class="button" >Account No.</button>
-    </th>
-    <td mat-cell *matCellDef="let element"> {{element.accountId}} </td>
-</ng-container>
-    <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef> 
-            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('date')" >Date</button>
-        </th>
-        <td mat-cell *matCellDef="let element"> {{element.operationTime}} </td>
-    </ng-container>
-    <ng-container matColumnDef="amount">
-        <th mat-header-cell *matHeaderCellDef>
-            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('amount')" >Amount</button>
-        </th>
-        <td mat-cell *matCellDef="let element"> {{element.transactionAmount}} </td>
-    </ng-container>
-    <ng-container matColumnDef="balance">
-        <th mat-header-cell *matHeaderCellDef>
-            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('balance')" >Balance</button>
-            </th>
-        <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
-    </ng-container>
-    <ng-container matColumnDef="debit">
-        <th mat-header-cell *matHeaderCellDef> 
-            <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('debit')" >Transaction Type</button>
-        </th>
-        <td mat-cell *matCellDef="let element" *ngIf="element.debit"> Debit </td>
-        <td mat-cell *matCellDef="let element" *ngIf="element.debit"> Credit </td>
-    </ng-container>
-<tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
-<tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'error': row.succeeded===false}" (click)="getDetails(row.transactionId)" ></tr> 
-</table>
-  <mat-paginator [pageSizeOptions]="[1, 5, 10, 15]" [length]="length" [pageSize]="5" showFirstLastButtons (page)="handlePage($event)"></mat-paginator>
-</div>
-<div  *ngIf=clicked>
-<mat-card class="example-card" style="display: inline-block; width: 100%;" *ngIf=clicked>
-  <mat-card-header>
-      <i class="fa fa-user fa-5x" aria-hidden="true" style="position: relative; margin-left: 46%; margin-right: 46%;"></i>
-  </mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Transaction Details</mat-card-title>
-    <mat-card-subtitle></mat-card-subtitle>
-    <mat-card-subtitle> From Account: {{eElement.fromAccount}}</mat-card-subtitle>
-      <mat-card-subtitle> To Account: {{eElement.toAccount}}</mat-card-subtitle>
-        <mat-card-subtitle>Date: {{eElement.date}}</mat-card-subtitle>
-          <mat-card-subtitle>Amount: {{eElement.amount}}</mat-card-subtitle>
-          <mat-card-subtitle *ngIf="eElement.status===2">Status: Failed</mat-card-subtitle>
-          <mat-card-subtitle *ngIf="eElement.status===1">Status: Succcess</mat-card-subtitle>
-          <mat-card-subtitle *ngIf="eElement.status===2">Failure Reason: {{eElement.failureReason}}</mat-card-subtitle>
-
-</mat-card>
-</div>
-
+  <mat-toolbar color="primary" style="text-align: center;">
+      <span class="fill-remaining-space">My Transactions</span>
+    </mat-toolbar> 
+  </body>
+  <mat-form-field appearance="fill"  style="width: 20%;">
+      <mat-label>Filter by a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker" (dateChange)="filter(start.value, end.value)">
+        <input matStartDate placeholder="Start date" id="start" #start>
+        <input matEndDate placeholder="End date" id="end" #end>
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker ></mat-date-range-picker>
+   </mat-form-field>
+   <button mat-raised-button color="primary"  class="button" (click)="filter(start.value, end.value)" >Filter</button>
+   <div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource"  multiTemplateDataRows>
+    <ng-container matColumnDef="accountNumber">
+      <th mat-header-cell *matHeaderCellDef> 
+          <button mat-raised-button color="primary" class="button" >Account No.</button>
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.accountId}} </td>
+  </ng-container>
+      <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> 
+              <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('date')" >Date</button>
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.operationTime}} </td>
+      </ng-container>
+      <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef>
+              <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('amount')" >Amount</button>
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.transactionAmount}} </td>
+      </ng-container>
+      <ng-container matColumnDef="balance">
+          <th mat-header-cell *matHeaderCellDef>
+              <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('balance')" >Balance</button>
+              </th>
+          <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
+      </ng-container>
+      <ng-container matColumnDef="debit">
+          <th mat-header-cell *matHeaderCellDef> 
+              <button mat-raised-button color="primary"  class="button" (click)="ngOnChanges('debit')" >Transaction Type</button>
+          </th>
+          <td mat-cell *matCellDef="let element" ><span *ngIf="element.debit">Debit</span> <span *ngIf="!element.debit">Credit</span> </td>
+      </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'error': row.succeeded===false}" (click)="getDetails(row.transactionId)" ></tr> 
+  </table>
+    <mat-paginator [pageSizeOptions]="[1, 5, 10, 15]" [length]="length" [pageSize]="5" showFirstLastButtons (page)="handlePage($event)"></mat-paginator>
+  </div>
+  <div  *ngIf=clicked>
+  <mat-card class="example-card" style="display: inline-block; width: 100%;" *ngIf=clicked>
+    <mat-card-header>
+        <i class="fa fa-user fa-5x" aria-hidden="true" style="position: relative; margin-left: 46%; margin-right: 46%;"></i>
+    </mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Transaction Details</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+      <mat-card-subtitle> From Account: {{eElement.fromAccount}}</mat-card-subtitle>
+        <mat-card-subtitle> To Account: {{eElement.toAccount}}</mat-card-subtitle>
+          <mat-card-subtitle>Date: {{eElement.date}}</mat-card-subtitle>
+            <mat-card-subtitle>Amount: {{eElement.amount}}</mat-card-subtitle>
+            <mat-card-subtitle *ngIf="eElement.status===2">Status: Failed</mat-card-subtitle>
+            <mat-card-subtitle *ngIf="eElement.status===1">Status: Succcess</mat-card-subtitle>
+            <mat-card-subtitle *ngIf="eElement.status===2">Failure Reason: {{eElement.failureReason}}</mat-card-subtitle>
+  
+  </mat-card>
+  </div>
+  
+  
